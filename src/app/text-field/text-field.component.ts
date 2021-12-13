@@ -11,30 +11,30 @@ export class TextFieldComponent implements OnInit {
 
   values = '';
   text = "";
-  list = new Array<string>();
+  list: string[] = [];
 
   test(ev: KeyboardEvent) {
-  //console.log(ev);
   this.values = (ev.target as HTMLInputElement).value;
   }
 
   onAdd(){
     this.list.push(this.text);
+    localStorage.setItem("to-do", JSON.stringify(this.list));
     this.text = "";
-    console.log(this.list);
   }
 
   deleteTask(inputText : string){
-    console.log(inputText);
     const index = this.list.indexOf(inputText);
-    console.log(index);
     if (index !== - 1){
       this.list.splice(index, 1);
+      localStorage.setItem("to-do", JSON.stringify(this.list));
     }
   }
 
 
   ngOnInit(): void {
+    const memList = localStorage.getItem("to-do");
+    if(memList) this.list = JSON.parse(memList);
   }
 
 }
