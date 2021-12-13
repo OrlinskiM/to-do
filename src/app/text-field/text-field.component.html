@@ -1,0 +1,9 @@
+<input #textInput (keyup.enter) = "onAdd()" [(ngModel)] = "text" placeholder="Enter a task"> 
+<button (click) = "onAdd()">Add</button>
+<p>{{values}}</p>
+<ul>
+    <li *ngFor="let task of list">
+        {{task}}
+        <button .deleteButton (click) = "deleteTask(task)">Delete</button>
+    </li>
+</ul>
