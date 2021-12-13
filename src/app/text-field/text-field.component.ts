@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ListService } from '../list.service';
 
 @Component({
   selector: 'app-text-field',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextFieldComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private listService: ListService
+    ) { }
 
   values = '';
   text = "";
@@ -18,23 +21,16 @@ export class TextFieldComponent implements OnInit {
   }
 
   onAdd(){
-    this.list.push(this.text);
-    localStorage.setItem("to-do", JSON.stringify(this.list));
+    this.listService.onAdd(this.text);
     this.text = "";
   }
 
   deleteTask(inputText : string){
-    const index = this.list.indexOf(inputText);
-    if (index !== - 1){
-      this.list.splice(index, 1);
-      localStorage.setItem("to-do", JSON.stringify(this.list));
-    }
+    this.listService.deleteTask(inputText);
   }
 
 
   ngOnInit(): void {
-    const memList = localStorage.getItem("to-do");
-    if(memList) this.list = JSON.parse(memList);
+    this.list = this.listService.getAll();
   }
-
 }
