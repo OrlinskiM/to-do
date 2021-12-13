@@ -4,6 +4,6 @@
 <ul>
     <li *ngFor="let task of list">
         {{task}}
-        <button .deleteButton (click) = "deleteTask(task)">Delete</button>
+        <button (click) = "deleteTask(task)">Delete</button>
     </li>
 </ul>
